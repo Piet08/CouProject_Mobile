@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name='Cou_Project_TM'
