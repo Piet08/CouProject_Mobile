@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/activity_main_drawer_con"
+            android:icon="@drawable/ic_con"
+            android:title="Connexion" />
+        <item
+            android:id="@+id/activity_main_drawer_map"
+            android:icon="@drawable/ic_map"
+            android:title="Cartes" />
+        <item
+            android:id="@+id/activity_main_drawer_places"
+            android:icon="@drawable/ic_places"
+            android:title="Lieux" />
+        <item
+            android:id="@+id/activity_main_drawer_addPlace"
+            android:icon="@drawable/ic_add_place"
+            android:title="Ajout lieu" />
+    </group>
+
+
+
+</menu>
