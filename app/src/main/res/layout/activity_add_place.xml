@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddPlaceActivity">
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="10dp"
+        android:text="Ajouter un lieu"
+        android:textSize="50sp" />
+
+
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="132dp"
+        android:layout_marginRight="20dp"
+        android:hint="Login"
+        android:inputType="text"
+        android:padding="15dp"
+        android:textSize="15sp" />
+
+    <Spinner
+        android:id="@+id/sp_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Type"
+        android:layout_below="@+id/et_name"
+        android:layout_marginTop="20dp" />
+
+    <EditText
+        android:id="@+id/et_desc"
+        android:layout_width="374dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="240dp"
+        android:layout_marginRight="20dp"
+        android:hint="Description"
+        android:inputType="textLongMessage"
+        android:padding="15dp"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_adresse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="317dp"
+        android:layout_marginBottom="10dp"
+        android:text="Adresse"
+        android:textSize="25sp" />
+
+    <EditText
+        android:id="@+id/et_street"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="364dp"
+        android:layout_marginRight="20dp"
+        android:hint="Rue"
+        android:inputType="text"
+        android:padding="15dp"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/et_num"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="433dp"
+        android:layout_marginRight="20dp"
+        android:hint="Numéro"
+        android:inputType="text"
+        android:padding="15dp"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/et_cp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="499dp"
+        android:layout_marginRight="20dp"
+        android:hint="Code Postal"
+        android:inputType="number"
+        android:padding="15dp"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/et_city"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="567dp"
+        android:layout_marginRight="20dp"
+        android:hint="Ville"
+        android:inputType="text"
+        android:padding="15dp"
+        android:textSize="15sp" />
+    <!--<Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_password"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimaryDark"
+        android:text="Connectez-vous"/>-->
+
+</RelativeLayout>

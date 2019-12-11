@@ -53,14 +53,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id){
             case R.id.activity_main_drawer_con :
-                Intent intent = new Intent(this, ConnectionActivity.class);
-                startActivity(intent);
+                Intent intentCon = new Intent(this, ConnectionActivity.class);
+                startActivity(intentCon);
                 break;
             case R.id.activity_main_drawer_map :
                 break;
             case R.id.activity_main_drawer_places :
                 break;
             case R.id.activity_main_drawer_addPlace :
+                Intent intentAdd = new Intent(this, AddPlaceActivity.class);
+                startActivity(intentAdd);
                 break;
             default:
                 break;
