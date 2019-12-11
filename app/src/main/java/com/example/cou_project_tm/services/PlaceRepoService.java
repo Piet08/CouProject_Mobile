@@ -1,5 +1,6 @@
 package com.example.cou_project_tm.services;
 
+import com.example.cou_project_tm.config.Configuration;
 import com.example.cou_project_tm.models.Place;
 import com.example.cou_project_tm.repository.PlaceRepo;
 
@@ -23,7 +24,7 @@ public class PlaceRepoService {
 
     private void init(){
         repository = new Retrofit.Builder()
-                .baseUrl(PlaceRepo.URL_PLACE) //Localhost du PC et non du simulateur (5000 http, 5001 https)
+                .baseUrl(Configuration.URL_API) //Localhost du PC et non du simulateur (5000 http, 5001 https)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(PlaceRepo.class);

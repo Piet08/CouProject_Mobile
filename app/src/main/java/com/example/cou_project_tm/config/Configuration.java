@@ -1,6 +1,6 @@
 package com.example.cou_project_tm.config;
 
 public interface Configuration {
-    String URL_API = "http://10.0.2.2:5000/api/";
+    String URL_API = "https://cou-application.azurewebsites.net/api/";
     String API_COU = "cou";
 }

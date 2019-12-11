@@ -1,5 +1,8 @@
 package com.example.cou_project_tm.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum EnumTypePlace {
     ALL ("ALL"),
     RESTAURANT ("Restaurant"),
@@ -19,4 +22,6 @@ public enum EnumTypePlace {
     public String toString(){
         return  name;
     }
+
+
 }

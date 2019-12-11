@@ -1,17 +1,25 @@
 package com.example.cou_project_tm;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.cou_project_tm.models.Place;
+import com.example.cou_project_tm.services.PlaceRepoService;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -32,6 +40,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.configureDrawerLayout();
 
         this.configureNavigationView();
+
+        fetchPlaces();
+    }
+
+    private void fetchPlaces() {
+        PlaceRepoService.query().enqueue(new Callback<List<Place>>() {
+            @Override
+            public void onResponse(Call<List<Place>> call, Response<List<Place>> response) {
+                Log.i("Places",response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<List<Place>> call, Throwable t) {
+                Log.i("fail","fail");
+            }
+        });
+
     }
 
     @Override
@@ -50,24 +75,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // 4 - Handle Navigation Item Click
         int id = item.getItemId();
+        Intent nextIntent = null;
 
         switch (id){
             case R.id.activity_main_drawer_con :
-                Intent intentCon = new Intent(this, ConnectionActivity.class);
-                startActivity(intentCon);
+                nextIntent = new Intent(this, ConnectionActivity.class);
                 break;
             case R.id.activity_main_drawer_map :
                 break;
             case R.id.activity_main_drawer_places :
                 break;
             case R.id.activity_main_drawer_addPlace :
-                Intent intentAdd = new Intent(this, AddPlaceActivity.class);
-                startActivity(intentAdd);
+                nextIntent = new Intent(this, AddPlaceActivity.class);
                 break;
             default:
                 break;
         }
-
+        startActivity(nextIntent);
         this.drawerLayout.closeDrawer(GravityCompat.START);
 
         return true;
