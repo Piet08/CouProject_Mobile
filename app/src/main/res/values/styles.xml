@@ -15,5 +15,13 @@
         <item name="colorControlNormal">@android:color/white</item>
     </style>
 
+    <style name="divider">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/cardview_dark_background</item>
+        <item name="android:layout_marginLeft">20sp</item>
+        <item name="android:layout_marginRight">20sp</item>
+    </style>
+
 
 </resources>
