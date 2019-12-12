@@ -10,11 +10,14 @@
     tools:openDrawer="start"
     tools:context=".MainActivity">
 
+
+
     <!-- 1 | MainActivity RootView -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@color/cardview_shadow_start_color"
         >
 
         <!-- Toolbar -->
@@ -22,10 +25,37 @@
             android:id="@+id/activity_main_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/cardview_shadow_start_color"
             app:theme="@style/ToolBarStyle"/>
 
         <!-- FrameLayout for our fragments -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cou ?"
+            android:textSize="70dp"
+            android:layout_marginTop="20sp"
+            android:layout_marginLeft="30sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/home1"
+            android:textSize="20dp"
+            android:layout_marginLeft="20sp"/>
+
+        <RelativeLayout style="@style/divider" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/home2"
+            android:textSize="20dp"
+            android:layout_marginLeft="20sp"/>
+
+
+
+
         <FrameLayout
             android:id="@+id/activity_main_frame_layout"
             android:layout_width="match_parent"
