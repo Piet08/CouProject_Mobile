@@ -22,9 +22,7 @@
             android:label="@string/title_activity_maps"></activity>
         <activity android:name=".ConnectionActivity" />
         <activity android:name=".AddPlaceActivity" />
-        <activity android:name=".ConnectionActivity"></activity>
         <activity android:name=".PlacesListActivity"></activity>
-        <activity android:name=".AddPlaceActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
