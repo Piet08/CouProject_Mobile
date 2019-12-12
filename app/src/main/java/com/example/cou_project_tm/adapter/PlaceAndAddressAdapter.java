@@ -35,16 +35,19 @@ public class PlaceAndAddressAdapter extends ArrayAdapter<PlaceAndAddress> {
 
         TextView placeName = v.findViewById(R.id.tv_place_name);
         TextView description = v.findViewById(R.id.tv_description);
+        TextView type = v.findViewById(R.id.tv_type);
         RatingBar ratingbar = v.findViewById(R.id.tv_rating_bar);
-        TextView address = v.findViewById(R.id.tv_address_title);
+        TextView address = v.findViewById(R.id.tv_address);
+
 
         PlaceAndAddress place = getItem(position);
         Address adr = place.getAddress();
 
+        type.setText(place.getPlace().getType());
         placeName.setText(place.getPlace().getName());
         description.setText(place.getPlace().getDescription());
         address.setText(adr.getPostalCode()+", " +adr.getCity()+"\n"+adr.getStraat()+", n° "+adr.getNum());
-        ratingbar.setRating((float)place.getAvgRate());
+        ratingbar.setRating((float)place.getAvgRate()/2);
 
         return v;
     }
