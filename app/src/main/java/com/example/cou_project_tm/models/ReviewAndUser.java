@@ -1,87 +1,56 @@
 package com.example.cou_project_tm.models;
 
+import java.util.Objects;
+
 public class ReviewAndUser {
-    private int id;
-    private int star;
-    private String comment;
-    private int isValid;
-    private Address address;
-    private int idPlace;
-    private String date;
+    private Review review;
+    private User user;
 
     public ReviewAndUser(){
-        this.id = -1;
-        this.star = -1;
-        this.isValid = -1;
-        this.idPlace = -1;
-        this.address = new Address();
-        this.idPlace = -1;
-        this.date = "";
+        this.review = new Review();
+        this.user = new User();
     }
 
-    public ReviewAndUser(int id, int star, String comment, int isValid, Address address, int idPlace, String date) {
-        this.id = id;
-        this.star = star;
-        this.comment = comment;
-        this.isValid = isValid;
-        this.address = address;
-        this.idPlace = idPlace;
-        this.date = date;
+    public ReviewAndUser(Review review, User user) {
+        this.review = review;
+        this.user = user;
     }
 
-    public int getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "ReviewAndUser{" +
+                "review=" + review +
+                ", user=" + user +
+                '}';
     }
 
-    public void setId(int id) {
-        this.id = id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ReviewAndUser that = (ReviewAndUser) o;
+        return Objects.equals(review, that.review) &&
+                Objects.equals(user, that.user);
     }
 
-    public int getStar() {
-        return star;
+    @Override
+    public int hashCode() {
+        return Objects.hash(review, user);
     }
 
-    public void setStar(int star) {
-        this.star = star;
+    public Review getReview() {
+        return review;
     }
 
-    public String getComment() {
-        return comment;
+    public void setReview(Review review) {
+        this.review = review;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public User getUser() {
+        return user;
     }
 
-    public int getIsValid() {
-        return isValid;
-    }
-
-    public void setIsValid(int isValid) {
-        this.isValid = isValid;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public int getIdPlace() {
-        return idPlace;
-    }
-
-    public void setIdPlace(int idPlace) {
-        this.idPlace = idPlace;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
