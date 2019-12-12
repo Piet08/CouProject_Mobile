@@ -6,18 +6,18 @@ public class Place {
     private int id;
     private String name;
     private String description;
-    private EnumTypePlace type;
+    private String type;
     private int idAdr;
 
     public Place(){
         this.id = -1;
         this.name = "";
         this.description ="";
-        this.type = EnumTypePlace.ALL;
+        this.type = "";
         this.idAdr = -1;
     }
 
-    public Place(int id, String name, String description, EnumTypePlace type, int idAdr) {
+    public Place(int id, String name, String description, String type, int idAdr) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -65,7 +65,7 @@ public class Place {
         return description;
     }
 
-    public EnumTypePlace getType() {
+    public String getType() {
         return type;
     }
 
@@ -85,7 +85,7 @@ public class Place {
         this.description = description;
     }
 
-    public void setType(EnumTypePlace type) {
+    public void setType(String type) {
         this.type = type;
     }
 

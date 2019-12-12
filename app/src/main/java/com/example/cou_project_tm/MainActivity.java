@@ -41,23 +41,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         this.configureNavigationView();
 
-        fetchPlaces();
     }
 
-    private void fetchPlaces() {
-        PlaceRepoService.query().enqueue(new Callback<List<Place>>() {
-            @Override
-            public void onResponse(Call<List<Place>> call, Response<List<Place>> response) {
-                Log.i("Places",response.body().toString());
-            }
 
-            @Override
-            public void onFailure(Call<List<Place>> call, Throwable t) {
-                Log.i("fail","fail");
-            }
-        });
-
-    }
 
     @Override
     public void onBackPressed() {
@@ -85,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 nextIntent = new Intent (this, MapsActivity.class);
                 break;
             case R.id.activity_main_drawer_places :
+                nextIntent = new Intent(this,PlacesListActivity.class);
                 break;
             case R.id.activity_main_drawer_addPlace :
                 nextIntent = new Intent(this, AddPlaceActivity.class);
