@@ -3,7 +3,10 @@ package com.example.cou_project_tm;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PlacesListActivity extends AppCompatActivity {
+public class PlacesListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private ListView lvPlaces;
     private List<PlaceAndAddress> places;
@@ -35,6 +38,7 @@ public class PlacesListActivity extends AppCompatActivity {
         lvPlaces = findViewById(R.id.lv_places);
         placesAdapter = new PlaceAndAddressAdapter(this,R.id.lv_places,places);
         lvPlaces.setAdapter(placesAdapter);
+        lvPlaces.setOnItemClickListener(this);
         loadPlaces();
 
     }
@@ -54,5 +58,12 @@ public class PlacesListActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.i("click","test");
+        final PlaceAndAddress place = places.get(position);
+        Toast.makeText(this,place.toString(),Toast.LENGTH_LONG).show();
     }
 }
