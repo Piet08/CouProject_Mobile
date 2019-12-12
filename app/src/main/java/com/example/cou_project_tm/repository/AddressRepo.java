@@ -18,6 +18,9 @@ public interface AddressRepo {
     @GET(URL_ADDRESS)
     Call<List<Address>> query();
 
+    @GET(URL_ADDRESS)
+    Call<Address> get(@Path("id") int id);
+
     @POST(URL_ADDRESS)
     Call<Address> post(@Body Address address);
 

@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 nextIntent = new Intent(this, ConnectionActivity.class);
                 break;
             case R.id.activity_main_drawer_map :
+                nextIntent = new Intent (this, MapsActivity.class);
                 break;
             case R.id.activity_main_drawer_places :
                 break;
