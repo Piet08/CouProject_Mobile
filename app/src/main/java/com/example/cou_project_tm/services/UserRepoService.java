@@ -1,6 +1,9 @@
 package com.example.cou_project_tm.services;
 
+import android.database.Observable;
+
 import com.example.cou_project_tm.config.Configuration;
+import com.example.cou_project_tm.models.AuthenticateModel;
 import com.example.cou_project_tm.models.User;
 import com.example.cou_project_tm.repository.UserRepo;
 
@@ -39,6 +42,10 @@ public class UserRepoService {
         return ourInstance.repository.post(user);
     }
 
+    public static Call<User> post(AuthenticateModel auth){
+        return ourInstance.repository.post(auth);
+    }
+
     public static Call<Void> delete(int id){
         return ourInstance.repository.delete(id);
     }
@@ -46,4 +53,6 @@ public class UserRepoService {
     public static Call<Void> put(User user){
         return ourInstance.repository.put(user);
     }
+
+
 }

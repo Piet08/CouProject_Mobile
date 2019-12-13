@@ -1,5 +1,7 @@
 package com.example.cou_project_tm.repository;
 
+import android.database.Observable;
+
 import com.example.cou_project_tm.models.AuthenticateModel;
 import com.example.cou_project_tm.models.User;
 
@@ -20,7 +22,7 @@ public interface UserRepo {
     Call<List<User>> query();
 
     @POST(URL_USER+"/authenticate")
-    Call<AuthenticateModel> post(@Body AuthenticateModel auth);
+    Call<User> post(@Body AuthenticateModel auth);
 
     @POST(URL_USER)
     Call<User> post(@Body User user);
