@@ -1,4 +1,4 @@
-package com.example.cou_project_tm;
+package com.example.cou_project_tm.activity;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -7,6 +7,7 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.cou_project_tm.R;
 import com.example.cou_project_tm.models.EnumTypePlace;
 
 import java.util.ArrayList;
