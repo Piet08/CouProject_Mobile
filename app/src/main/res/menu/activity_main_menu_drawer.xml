@@ -20,6 +20,10 @@
             android:id="@+id/activity_main_drawer_addPlace"
             android:icon="@drawable/ic_add_place"
             android:title="Ajout lieu" />
+        <item
+            android:id="@+id/activity_main_drawer_logOut"
+            android:icon="@drawable/ic_log_ouy"
+            android:title="Déconnexion" />
     </group>
 
 

@@ -1,6 +1,8 @@
 package com.example.cou_project_tm;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -27,11 +29,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    SharedPreferences sharedpreferences;
+    public static final String MyPREFERENCES = "MyPrefs" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         // 6 - Configure all views
 
@@ -88,6 +93,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.activity_main_drawer_addPlace :
                 nextIntent = new Intent(this, AddPlaceActivity.class);
                 break;
+            case R.id.activity_main_drawer_logOut:
+                logOut();
+                nextIntent = new Intent(this, MainActivity.class);
+                break;
             default:
                 break;
         }
@@ -95,6 +104,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.drawerLayout.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    private void logOut(){
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        if(sharedpreferences.contains("User")){
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.clear();
+            editor.commit();
+            Log.i("UserContains", String.valueOf(sharedpreferences.contains("User")));
+        }
     }
 
     // ---------------------
