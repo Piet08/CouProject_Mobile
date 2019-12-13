@@ -1,6 +1,7 @@
 package com.example.cou_project_tm.services;
 
 import com.example.cou_project_tm.config.Configuration;
+import com.example.cou_project_tm.models.PlaceAndAddress;
 import com.example.cou_project_tm.models.Review;
 import com.example.cou_project_tm.repository.ReviewRepo;
 
@@ -30,6 +31,8 @@ public class ReviewRepoService {
                 .create(ReviewRepo.class);
 
     }
+
+
 
     public static Call<List<Review>> query(){
         return ourInstance.repository.query();

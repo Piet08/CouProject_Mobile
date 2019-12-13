@@ -3,36 +3,28 @@ package com.example.cou_project_tm.models;
 import java.util.Objects;
 
 public class PlaceAndAddress {
-    private int id;
-    private String name;
-    private String description;
-    private EnumTypePlace type;
     private Address address;
+    private Place place;
+    private double avgRate;
 
     public PlaceAndAddress(){
-        this.id = -1;
-        this.name = "";
-        this.description ="";
-        this.type = EnumTypePlace.ALL;
         this.address = new Address();
+        this.place = new Place();
+        this.avgRate = 0;
     }
 
-    public PlaceAndAddress(int id, String name, String description, EnumTypePlace type, Address address) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.type = type;
+    public PlaceAndAddress(Address address, Place place, double avgRate) {
         this.address = address;
+        this.place = place;
+        this.avgRate = avgRate;
     }
 
     @Override
     public String toString() {
-        return "Place{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", type=" + type +
-                ", address=" + address +
+        return "PlaceAndAddress{" +
+                "address=" + address +
+                ", place=" + place +
+                ", avgRate=" + avgRate +
                 '}';
     }
 
@@ -40,57 +32,39 @@ public class PlaceAndAddress {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PlaceAndAddress place = (PlaceAndAddress) o;
-        return id == place.id &&
-                Objects.equals(name, place.name) &&
-                Objects.equals(description, place.description) &&
-                type == place.type &&
-                Objects.equals(address, place.address);
+        PlaceAndAddress that = (PlaceAndAddress) o;
+        return Double.compare(that.avgRate, avgRate) == 0 &&
+                Objects.equals(address, that.address) &&
+                Objects.equals(place, that.place);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, type, address);
+        return Objects.hash(address, place, avgRate);
     }
 
-    public int getId() {
-        return id;
+    public double getAvgRate() {
+        return avgRate;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public EnumTypePlace getType() {
-        return type;
+    public void setAvgRate(double avgRate) {
+        this.avgRate = avgRate;
     }
 
     public Address getAddress() {
         return address;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setType(EnumTypePlace type) {
-        this.type = type;
-    }
-
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public Place getPlace() {
+        return place;
+    }
+
+    public void setPlace(Place place) {
+        this.place = place;
     }
 }
 

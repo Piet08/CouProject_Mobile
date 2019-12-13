@@ -1,37 +1,50 @@
 package com.example.cou_project_tm.models;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
+import com.example.cou_project_tm.R;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
 import java.util.Objects;
+import java.util.zip.Inflater;
 
-public class Address{
-    private int id;
+public class Marker implements ClusterItem{
+    private int idAdr;
     private String city;
     private String straat;
     private String num;
     private int postalCode;
 
-    public Address(int id, String city, String straat, String num, int postalCode) {
-        this.id = id;
+    private int idPlace;
+    private String name;
+    private String description;
+    private String type;
+
+    private double avgRate;
+
+    private LatLng latLng;
+
+    public Marker(int idAdr, String city, String straat, String num, int postalCode, int idPlace, String name, String description, String type, double avgRate) {
+        this.idAdr = idAdr;
         this.city = city;
         this.straat = straat;
         this.num = num;
         this.postalCode = postalCode;
-    }
-
-    public Address() {
-        this.id = -1;
-        this.city = "";
-        this.straat = "";
-        this.num = "";
-        this.postalCode = 0;
+        this.idPlace = idPlace;
+        this.name = name;
+        this.description = description;
+        this.type = type;
+        this.avgRate = avgRate;
     }
 
     @Override
     public String toString() {
         return "Address{" +
-                "id=" + id +
+                "id=" + idAdr +
                 ", city='" + city + '\'' +
                 ", straat='" + straat + '\'' +
                 ", num='" + num + '\'' +
@@ -39,12 +52,20 @@ public class Address{
                 '}';
     }
 
+    public String infoAddressToString(){
+        return city + "," + straat + " N° " + num + ", " + postalCode;
+    }
+
+    public String infoPlaceToString(){
+        return name + " : " + description + "\n" + avgRate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Address address = (Address) o;
-        return id == address.id &&
+        Marker address = (Marker) o;
+        return idAdr == address.idAdr &&
                 postalCode == address.postalCode &&
                 Objects.equals(city, address.city) &&
                 Objects.equals(straat, address.straat) &&
@@ -53,15 +74,15 @@ public class Address{
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, city, straat, num, postalCode);
+        return Objects.hash(idAdr, city, straat, num, postalCode);
     }
 
     public int getId() {
-        return id;
+        return idAdr;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.idAdr = id;
     }
 
     public String getCity() {
@@ -95,4 +116,18 @@ public class Address{
     public void setPostalCode(int postalCode) {
         this.postalCode = postalCode;
     }
+
+    public LatLng getLatLng() { return latLng; }
+
+    public void setLatLng(LatLng latLng) { this.latLng = latLng; }
+
+    @Override
+    public LatLng getPosition() { return latLng; }
+
+    @Override
+    public String getTitle() { return infoAddressToString(); }
+
+    @Override
+    public String getSnippet() { return infoPlaceToString(); }
+
 }

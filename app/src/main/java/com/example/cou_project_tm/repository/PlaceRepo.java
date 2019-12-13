@@ -1,6 +1,7 @@
 package com.example.cou_project_tm.repository;
 
 import com.example.cou_project_tm.models.Place;
+import com.example.cou_project_tm.models.PlaceAndAddress;
 
 import java.util.List;
 
@@ -17,6 +18,9 @@ public interface PlaceRepo {
 
     @GET(URL_PLACE)
     Call<List<Place>> query();
+
+    @GET(URL_PLACE+"/addresses")
+    Call<List<PlaceAndAddress>> getPlacesAndAddress();
 
     @POST(URL_PLACE)
     Call<Place> post(@Body Place place);

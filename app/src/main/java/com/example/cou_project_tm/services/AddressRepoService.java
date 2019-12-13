@@ -35,6 +35,8 @@ public class AddressRepoService {
         return ourInstance.repository.query();
     }
 
+    public static Call<Address> get(int id){ return ourInstance.repository.get(id);}
+
     public static Call<Address> post(Address address){
         return ourInstance.repository.post(address);
     }

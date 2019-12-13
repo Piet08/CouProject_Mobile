@@ -2,6 +2,7 @@ package com.example.cou_project_tm.services;
 
 import com.example.cou_project_tm.config.Configuration;
 import com.example.cou_project_tm.models.Place;
+import com.example.cou_project_tm.models.PlaceAndAddress;
 import com.example.cou_project_tm.repository.PlaceRepo;
 
 import java.util.List;
@@ -30,6 +31,8 @@ public class PlaceRepoService {
                 .create(PlaceRepo.class);
 
     }
+
+    public static Call<List<PlaceAndAddress>> getPlacesAndAddress(){return ourInstance.repository.getPlacesAndAddress();}
 
     public static Call<List<Place>> query(){
         return ourInstance.repository.query();
