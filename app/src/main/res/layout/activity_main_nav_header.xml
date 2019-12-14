@@ -22,5 +22,11 @@
         android:text="Menu"
         android:textSize="70dp" />
 
+    <TextView
+        android:id="@+id/activity_main_name_user_current"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
 
 </LinearLayout>

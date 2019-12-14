@@ -53,14 +53,14 @@ public class AddPlaceActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PlaceRepoService.post(buildPlaceAndAddress()).enqueue(new Callback<PlaceAndAddress>() {
+                PlaceRepoService.post(buildPlaceAndAddress()).enqueue(new Callback<Place>() {
                     @Override
-                    public void onResponse(Call<PlaceAndAddress> call, Response<PlaceAndAddress> response) {
-                        Log.i("PlaceAdd", response.toString());
+                    public void onResponse(Call<Place> call, Response<Place> response) {
+                        Log.i("PlaceAdd", response.body().toString());
                     }
 
                     @Override
-                    public void onFailure(Call<PlaceAndAddress> call, Throwable t) {
+                    public void onFailure(Call<Place> call, Throwable t) {
                         Log.i("fail","fail");
                     }
                 });
@@ -85,20 +85,18 @@ public class AddPlaceActivity extends AppCompatActivity {
 
     public Address buildAddress(){
         Address address = new Address();
-        address.setCity(etCity.getText().toString());
-        address.setNum(etNum.getText().toString());
-        address.setStraat(etStreet.getText().toString());
-        String no=etCp.getText().toString();       //this will get a string
-        int no2=Integer.parseInt(no);
-        address.setPostalCode(no2);
+        address.setCity(String.valueOf(etCity.getText()));
+        address.setNum(String.valueOf(etNum.getText()));
+        address.setStraat(String.valueOf(etStreet.getText()));
+        address.setPostalCode(Integer.parseInt(String.valueOf(etCp.getText())));
         return address;
     }
 
     public Place buildPlace(){
         Place place = new Place();
-        place.setName(etName.getText().toString());
-        place.setType(spType.toString());
-        place.setDescription(etDesc.getText().toString());
+        place.setName(String.valueOf(etName.getText()));
+        place.setType(spType.getSelectedItem().toString());
+        place.setDescription(String.valueOf(etDesc.getText()));
         return place;
     }
 

@@ -14,7 +14,7 @@ public class User {
 
     public User(){
         this.id = -1;
-        this.name = "";
+        this.name = "Guest";
         this.surname = "";
         this.pseudo = "";
         this.email = "";
@@ -125,6 +125,7 @@ public class User {
     }
 
     public String getToken() {
+        if(token == null)token = " ";
         return token;
     }
 
