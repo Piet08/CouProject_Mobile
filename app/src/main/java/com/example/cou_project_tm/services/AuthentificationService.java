@@ -1,16 +1,11 @@
 package com.example.cou_project_tm.services;
 
 
-import com.example.cou_project_tm.RequestInterceptor;
-import com.example.cou_project_tm.config.Configuration;
 import com.example.cou_project_tm.models.AuthenticateModel;
 import com.example.cou_project_tm.models.User;
 
-import okhttp3.OkHttpClient;
 import retrofit2.Call;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.HTTP;
+
 
 public class AuthentificationService {
     private static final AuthentificationService ourInstance = new AuthentificationService();

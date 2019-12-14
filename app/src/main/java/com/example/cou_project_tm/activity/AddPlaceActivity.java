@@ -85,9 +85,9 @@ public class AddPlaceActivity extends AppCompatActivity {
 
     public Address buildAddress(){
         Address address = new Address();
-        address.setCity(etCity.toString());
-        address.setNum(etNum.toString());
-        address.setStraat(etStreet.toString());
+        address.setCity(etCity.getText().toString());
+        address.setNum(etNum.getText().toString());
+        address.setStraat(etStreet.getText().toString());
         String no=etCp.getText().toString();       //this will get a string
         int no2=Integer.parseInt(no);
         address.setPostalCode(no2);
@@ -96,9 +96,9 @@ public class AddPlaceActivity extends AppCompatActivity {
 
     public Place buildPlace(){
         Place place = new Place();
-        place.setName(etName.toString());
+        place.setName(etName.getText().toString());
         place.setType(spType.toString());
-        place.setDescription(etDesc.toString());
+        place.setDescription(etDesc.getText().toString());
         return place;
     }
 

@@ -21,10 +21,10 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"></activity>
-        <activity android:name=".ConnectionActivity" />
-        <activity android:name=".AddPlaceActivity" />
-        <activity android:name=".PlacesListActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.ConnectionActivity" />
+        <activity android:name=".activity.AddPlaceActivity" />
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
