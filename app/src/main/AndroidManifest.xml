@@ -14,17 +14,17 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activity.PlacesListActivity"></activity>
         <activity android:name=".activity.ReviewListActivity"></activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".activity.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
-        <activity android:name=".ConnectionActivity" />
-        <activity android:name=".AddPlaceActivity" />
-        <activity android:name=".PlacesListActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.ConnectionActivity" ></activity>
+        <activity android:name=".activity.AddPlaceActivity" ></activity>
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -66,6 +66,8 @@ public class PlacesListActivity extends AppCompatActivity implements AdapterView
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final PlaceAndAddress place = places.get(position);
         ReviewListActivity.setId(place.getPlace().getId());
+        Intent reviewIntent = new Intent(this,ReviewListActivity.class);
+        reviewIntent.putExtra(String.valueOf(R.string.ID_PLACE_FOR_REVIEW),place.getPlace().getId()+"");
         startActivity(new Intent(this,ReviewListActivity.class));
     }
 }

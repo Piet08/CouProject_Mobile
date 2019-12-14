@@ -1,4 +1,4 @@
-package com.example.cou_project_tm;
+package com.example.cou_project_tm.activity;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.cou_project_tm.R;
 import com.example.cou_project_tm.models.Marker;
 import com.example.cou_project_tm.models.PlaceAndAddress;
 import com.example.cou_project_tm.services.GeocoderService;

@@ -16,6 +16,8 @@ import com.example.cou_project_tm.R;
 import com.example.cou_project_tm.models.User;
 import com.example.cou_project_tm.services.AuthentificationService;
 import com.example.cou_project_tm.services.UserRepoService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
@@ -29,9 +31,8 @@ public class ConnectionActivity extends AppCompatActivity {
     private EditText etLogin, etPassword;
     private CheckBox cbRemember;
     private Button btnLogin;
-    private Call<User> currentUser;
+    private User currentUser;
 
-    public static final String MyPREFERENCES = "MyPrefs" ;
     SharedPreferences sharedpreferences;
 
 
@@ -44,27 +45,29 @@ public class ConnectionActivity extends AppCompatActivity {
         cbRemember = findViewById(R.id.cb_remember);
         btnLogin = findViewById(R.id.btn_login);
 
-        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-
+        sharedpreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("checked", String.valueOf(isChecked(v)));
-                AuthentificationService.login(String.valueOf(etLogin.getText()),String.valueOf(etPassword.getText()),isChecked(v)).enqueue(new Callback<User>() {
+                AuthentificationService.login(String.valueOf(etLogin.getText()),String.valueOf(etPassword.getText())).enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
-                        Log.i("User",response.body().toString());
-                        currentUser = call;
+                        Gson gson = new GsonBuilder().serializeNulls().create();
+                        currentUser = response.body();
+                        AuthentificationService.setCurrentUser(currentUser);
+
                         SharedPreferences.Editor editor = sharedpreferences.edit();
-                        editor.putString("User",currentUser.toString());
-                        //Log.i("User", String.valueOf(sharedpreferences.contains("User")));
-                        editor.commit();
+                        if(cbRemember.isChecked())
+                            editor.putString("currentUser",gson.toJson(currentUser));
+                            editor.apply();
+
+                        Log.i("connection",sharedpreferences.getString("currentUser",null));
 
                     }
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
-                        Log.i("fail","fail");
+                        Log.i("connection","fail");
                     }
                 });
                 Intent nextIntent = new Intent(getBaseContext(), MainActivity.class);
@@ -73,7 +76,7 @@ public class ConnectionActivity extends AppCompatActivity {
 
         });
 
-        fetchUser();
+        //fetchUser();
     }
 
 

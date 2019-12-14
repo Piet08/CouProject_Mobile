@@ -35,6 +35,7 @@ public class ReviewListActivity extends AppCompatActivity implements AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reviews);
 
+        //setId(Integer.parseInt(getIntent().getExtras().getString(String.valueOf(R.string.ID_PLACE_FOR_REVIEW))));
         reviews = new ArrayList<>();
         lvReviews = findViewById(R.id.tv_reviews_lv_reviews);
         reviewAndUserAdapter = new ReviewAndUserAdapter(this,R.id.tv_reviews_lv_reviews,reviews);
