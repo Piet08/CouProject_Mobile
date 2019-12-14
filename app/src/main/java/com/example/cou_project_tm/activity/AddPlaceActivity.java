@@ -74,7 +74,6 @@ public class AddPlaceActivity extends AppCompatActivity {
 
     public void addItemsOnspinner(){
         spType = findViewById(R.id.sp_type);
-
         List<String> listItems = new ArrayList<String>();
         for( int i=0;i<EnumTypePlace.values().length;i++)
             listItems.add(EnumTypePlace.values()[i].toString());

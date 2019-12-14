@@ -25,8 +25,6 @@
         <activity android:name=".activity.ConnectionActivity" />
         <activity android:name=".activity.AddPlaceActivity" />
         <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.ConnectionActivity" ></activity>
-        <activity android:name=".activity.AddPlaceActivity" ></activity>
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

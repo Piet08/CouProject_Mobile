@@ -56,7 +56,7 @@ public class PlaceRepoService {
     }
 
     public static Call<Place> post(PlaceAndAddress placeAndAddress){
-        Log.i("place",placeAndAddress.toString());
+        Log.i("user",placeAndAddress.toString());
         return ourInstance.repository.post(placeAndAddress);
     }
 

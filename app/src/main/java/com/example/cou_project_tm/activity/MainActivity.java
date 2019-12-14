@@ -14,7 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.cou_project_tm.MapsActivity;
+import com.example.cou_project_tm.activity.MapsActivity;
 import com.example.cou_project_tm.R;
 import com.example.cou_project_tm.models.User;
 import com.example.cou_project_tm.services.AuthentificationService;

@@ -9,6 +9,7 @@ public class User {
     private String pseudo;
     private String email;
     private String hashpwd;
+    private String type;
     private int idAdr;
     private String token;
 
@@ -19,17 +20,19 @@ public class User {
         this.pseudo = "";
         this.email = "";
         this.hashpwd = "";
+        this.type = "";
         this.token = "";
         this.idAdr = -1;
     }
 
-    public User(int id, String name, String surname, String pseudo, String email, String hashpwd, int idAdr, String token) {
+    public User(int id, String name, String surname, String pseudo, String email, String hashpwd, int idAdr, String token, String type) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.pseudo = pseudo;
         this.email = email;
         this.hashpwd = hashpwd;
+        this.type = type;
         this.idAdr = idAdr;
         this.token = token;
     }
@@ -43,6 +46,7 @@ public class User {
                 ", pseudo='" + pseudo + '\'' +
                 ", email='" + email + '\'' +
                 ", hashpwd='" + hashpwd + '\'' +
+                ", type='" + type + '\'' +
                 ", idAdr=" + idAdr +
                 ", token='" + token + '\'' +
                 '}';
@@ -59,13 +63,14 @@ public class User {
                 Objects.equals(pseudo, user.pseudo) &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(hashpwd, user.hashpwd) &&
+                Objects.equals(type, user.type) &&
                 Objects.equals(idAdr, user.idAdr) &&
                 Objects.equals(token, user.token);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, pseudo, email, hashpwd, idAdr, token);
+        return Objects.hash(id, name, surname, pseudo, email, hashpwd, idAdr, type, token);
     }
 
     public int getId() {
@@ -132,4 +137,13 @@ public class User {
     public void setToken(String token) {
         this.token = token;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
 }
