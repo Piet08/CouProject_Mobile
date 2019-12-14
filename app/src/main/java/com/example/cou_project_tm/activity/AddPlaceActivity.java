@@ -1,4 +1,4 @@
-package com.example.cou_project_tm;
+package com.example.cou_project_tm.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cou_project_tm.models.Address;
+import com.example.cou_project_tm.R;
 import com.example.cou_project_tm.models.EnumTypePlace;
 import com.example.cou_project_tm.models.Place;
 import com.example.cou_project_tm.models.PlaceAndAddress;

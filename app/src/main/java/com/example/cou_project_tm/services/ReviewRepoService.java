@@ -3,6 +3,7 @@ package com.example.cou_project_tm.services;
 import com.example.cou_project_tm.config.Configuration;
 import com.example.cou_project_tm.models.PlaceAndAddress;
 import com.example.cou_project_tm.models.Review;
+import com.example.cou_project_tm.models.ReviewAndUser;
 import com.example.cou_project_tm.repository.ReviewRepo;
 
 import java.util.List;
@@ -36,6 +37,10 @@ public class ReviewRepoService {
 
     public static Call<List<Review>> query(){
         return ourInstance.repository.query();
+    }
+
+    public static Call<List<ReviewAndUser>> getReviewsAndUsers(int id){
+        return ourInstance.repository.getReviewsAndUsers(id);
     }
 
     public static Call<Review> post(Review review){

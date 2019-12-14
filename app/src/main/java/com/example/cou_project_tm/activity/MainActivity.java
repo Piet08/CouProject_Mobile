@@ -1,10 +1,9 @@
-package com.example.cou_project_tm;
+package com.example.cou_project_tm.activity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -13,15 +12,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.cou_project_tm.models.Place;
-import com.example.cou_project_tm.services.PlaceRepoService;
+import com.example.cou_project_tm.R;
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 

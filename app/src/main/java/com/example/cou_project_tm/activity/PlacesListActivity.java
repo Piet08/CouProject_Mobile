@@ -1,5 +1,6 @@
-package com.example.cou_project_tm;
+package com.example.cou_project_tm.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.cou_project_tm.R;
 import com.example.cou_project_tm.adapter.PlaceAndAddressAdapter;
 import com.example.cou_project_tm.models.Place;
 import com.example.cou_project_tm.models.PlaceAndAddress;
@@ -62,8 +64,8 @@ public class PlacesListActivity extends AppCompatActivity implements AdapterView
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.i("click","test");
         final PlaceAndAddress place = places.get(position);
-        Toast.makeText(this,place.toString(),Toast.LENGTH_LONG).show();
+        ReviewListActivity.setId(place.getPlace().getId());
+        startActivity(new Intent(this,ReviewListActivity.class));
     }
 }

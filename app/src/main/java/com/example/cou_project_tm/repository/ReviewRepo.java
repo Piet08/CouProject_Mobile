@@ -1,6 +1,7 @@
 package com.example.cou_project_tm.repository;
 
 import com.example.cou_project_tm.models.Review;
+import com.example.cou_project_tm.models.ReviewAndUser;
 
 import java.util.List;
 
@@ -17,6 +18,9 @@ public interface ReviewRepo {
 
     @GET(URL_REVIEW)
     Call<List<Review>> query();
+
+    @GET(URL_REVIEW+"/users/place/{id}")
+    Call<List<ReviewAndUser>> getReviewsAndUsers(@Path("id") int id);
 
     @POST(URL_REVIEW)
     Call<Review> post(@Body Review review);

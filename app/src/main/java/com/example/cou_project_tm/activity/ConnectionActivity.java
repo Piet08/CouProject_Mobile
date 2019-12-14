@@ -1,4 +1,4 @@
-package com.example.cou_project_tm;
+package com.example.cou_project_tm.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.cou_project_tm.R;
 import com.example.cou_project_tm.models.User;
 import com.example.cou_project_tm.services.AuthentificationService;
 import com.example.cou_project_tm.services.UserRepoService;
