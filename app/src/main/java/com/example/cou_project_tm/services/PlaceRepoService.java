@@ -32,7 +32,7 @@ public class PlaceRepoService {
                 .build()
                 .create(PlaceRepo.class);
 
-        /*OkHttpClient okHttpClient = new OkHttpClient.Builder()
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new RequestInterceptor()) // This is used to add ApplicationInterceptor.
                 .addNetworkInterceptor(new RequestInterceptor()) //This is used to add NetworkInterceptor.
                 .build();
@@ -41,7 +41,7 @@ public class PlaceRepoService {
                 .baseUrl(Configuration.URL_API) //This is the onlt mandatory call on Builder object.
                 .client(okHttpClient) //The Htttp client to be used for requests
                 .addConverterFactory(GsonConverterFactory.create()) // Convertor library used to convert response into POJO
-                .build();*/
+                .build();
 
     }
 
@@ -54,6 +54,11 @@ public class PlaceRepoService {
     public static Call<Place> post(Place place){
         return ourInstance.repository.post(place);
     }
+
+    public static Call<PlaceAndAddress> post(PlaceAndAddress placeAndAddress){
+        return ourInstance.repository.post(placeAndAddress);
+    }
+
 
     public static Call<Void> delete(int id){
         return ourInstance.repository.delete(id);

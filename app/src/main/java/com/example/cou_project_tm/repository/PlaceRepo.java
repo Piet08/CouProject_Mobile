@@ -25,6 +25,9 @@ public interface PlaceRepo {
     @POST(URL_PLACE)
     Call<Place> post(@Body Place place);
 
+    @POST(URL_PLACE)
+    Call<PlaceAndAddress> post(@Body PlaceAndAddress placeAndAddress);
+
     @DELETE(URL_PLACE)
     Call<Void> delete(@Path("id")int id);
 
