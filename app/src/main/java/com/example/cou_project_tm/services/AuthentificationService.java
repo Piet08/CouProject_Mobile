@@ -35,6 +35,9 @@ public class AuthentificationService {
 
     public static void setCurrentUser(User currentUser) {
         AuthentificationService.currentUser = currentUser;
+        if(currentUser==null) {
+            currentUser = new User();
+        }
     }
 
     public static Call<User> login(String username, String password){

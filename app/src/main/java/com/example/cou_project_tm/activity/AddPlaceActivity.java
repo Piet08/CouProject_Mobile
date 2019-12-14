@@ -36,9 +36,13 @@ public class AddPlaceActivity extends AppCompatActivity {
     private Spinner spType;
     private Button btnAdd;
 
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_place);
+
+        List<EditText> listEdit = new ArrayList<EditText>();
 
         etCity = findViewById(R.id.et_city);
         etStreet = findViewById(R.id.et_street);
@@ -47,29 +51,64 @@ public class AddPlaceActivity extends AppCompatActivity {
         etName = findViewById(R.id.et_name);
         etDesc = findViewById(R.id.et_desc);
         btnAdd = findViewById(R.id.btn_add);
+
+        listEdit.add(etCity);
+        listEdit.add(etStreet);
+        listEdit.add(etNum);
+        listEdit.add(etCp);
+        listEdit.add(etName);
+        listEdit.add(etDesc);
         addItemsOnspinner();
+
+
+
 
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PlaceRepoService.post(buildPlaceAndAddress()).enqueue(new Callback<Place>() {
-                    @Override
-                    public void onResponse(Call<Place> call, Response<Place> response) {
-                        Log.i("PlaceAdd", response.body().toString());
-                    }
+                if(isCompleted(listEdit)) {
+                    PlaceRepoService.post(buildPlaceAndAddress()).enqueue(new Callback<Place>() {
+                        @Override
+                        public void onResponse(Call<Place> call, Response<Place> response) {
+                            Log.i("PlaceAdd", response.body().toString());
+                        }
 
-                    @Override
-                    public void onFailure(Call<Place> call, Throwable t) {
-                        Log.i("fail","fail");
-                    }
-                });
-                Intent nextIntent = new Intent(getBaseContext(), MainActivity.class);
-                startActivity(nextIntent);
+                        @Override
+                        public void onFailure(Call<Place> call, Throwable t) {
+                            Log.i("fail", "fail");
+                        }
+                    });
+                    Intent nextIntent = new Intent(getBaseContext(), MainActivity.class);
+                    startActivity(nextIntent);
+                }else {
+                    editTextCheck(listEdit);
+                }
             }
 
         });
 
+    }
+
+    private boolean isCompleted(List<EditText> listEdit) {
+        for(EditText edit : listEdit){
+            if(edit.getText().toString().equals("")){
+                return false;
+            }else {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public void editTextCheck(List<EditText> list){
+        for(EditText edit : list){
+            if( edit.getText().toString().trim().equals("")) {
+                edit.setError("Le champ est requis.");
+
+            }
+        }
     }
 
     public void addItemsOnspinner(){

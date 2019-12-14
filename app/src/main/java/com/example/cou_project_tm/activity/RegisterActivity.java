@@ -20,6 +20,9 @@ import com.example.cou_project_tm.services.UserRepoService;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,28 +37,36 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        List<EditText> listEdit = new ArrayList<EditText>();
+
         etEmail = findViewById(R.id.et_email);
         etName = findViewById(R.id.et_name);
         etSurname = findViewById(R.id.et_surname);
         etPseudo = findViewById(R.id.et_pseudo);
         etPwd = findViewById(R.id.et_passwordRegister);
-
         etVerifPwd = findViewById(R.id.et_verifPasswordRegister);
-
         etStreet = findViewById(R.id.et_userStreet);
         etNum = findViewById(R.id.et_userNum);
         etCp = findViewById(R.id.et_userCp);
         etCity = findViewById(R.id.et_userCity);
-
         btnRegister = findViewById(R.id.btn_register);
 
-
+        listEdit.add(etEmail);
+        listEdit.add(etName);
+        listEdit.add(etSurname);
+        listEdit.add(etPseudo);
+        listEdit.add(etPwd);
+        listEdit.add(etVerifPwd);
+        listEdit.add(etStreet);
+        listEdit.add(etNum);
+        listEdit.add(etCp);
+        listEdit.add(etCity);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("EGAL", String.valueOf(verifPwd()));
-                if(verifPwd()==true) {
+                if(isCompleted(listEdit)) {
+                    if (verifPwd() == true) {
                         UserRepoService.post(buildUserAndAddress()).enqueue(new Callback<User>() {
                             @Override
                             public void onResponse(Call<User> call, Response<User> response) {
@@ -68,19 +79,33 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         });
 
-                        String msgWelcome = "Bienvenue dans notre communauté";
-                        alert(msgWelcome);
                         Intent nextIntent = new Intent(getBaseContext(), MainActivity.class);
                         startActivity(nextIntent);
+                    } else {
+                        String msg = "Vous n'avez pas encodé les mêmes mot de passe !";
+                        alert(msg);
+                    }
                 }else{
-                    String msg = "Vous n'avez pas encodé les mêmes mot de passe !";
-                    alert(msg);
+                    editTextCheck(listEdit);
                 }
             }
         });
 
 
     }
+
+    private boolean isCompleted(List<EditText> listEdit) {
+        for(EditText edit : listEdit){
+            if(edit.getText().toString().equals("")){
+                return false;
+            }else {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public boolean verifPwd(){
         return etPwd.getText().toString().equals(etVerifPwd.getText().toString());
     }
@@ -94,6 +119,14 @@ public class RegisterActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    public void editTextCheck(List<EditText> list){
+        for(EditText edit : list){
+            if( edit.getText().toString().trim().equals("")) {
+                edit.setError("Le champ est requis.");
+            }
+        }
+    }
+
     public Address buildAddress(){
         Address address = new Address();
         address.setCity(String.valueOf(etCity.getText()));
@@ -102,7 +135,6 @@ public class RegisterActivity extends AppCompatActivity {
         address.setPostalCode(Integer.parseInt(String.valueOf(etCp.getText())));
         return address;
     }
-
 
     public User buildUser(){
         User user = new User();
