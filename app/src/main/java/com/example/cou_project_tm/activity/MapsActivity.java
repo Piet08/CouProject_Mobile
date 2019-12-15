@@ -1,6 +1,8 @@
 
 package com.example.cou_project_tm.activity;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
@@ -8,12 +10,14 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.cou_project_tm.R;
 import com.example.cou_project_tm.models.CustomInfoWindowAdapter;
@@ -66,18 +70,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == 1340) {
-            if (permissions.length == 1 &&
-                    permissions[0] == Manifest.permission.ACCESS_FINE_LOCATION &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == 1340){
+            if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 mMap.setMyLocationEnabled(true);
-            } else {
-                Log.e("ErrorPermissions","Not allow to locate");
+                mMap.getUiSettings().setMyLocationButtonEnabled(true);
+            }else{
+                Toast.makeText(this,"Permission was not granted",Toast.LENGTH_SHORT).show();
             }
+        }else {
+            super.onRequestPermissionsResult(requestCode,permissions,grantResults);
         }
-
-
     }
 
     private void initMap(GoogleMap googleMap){
@@ -87,10 +90,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         clusterManager = new ClusterManager<>(this, mMap);
         mMap.setOnCameraIdleListener(clusterManager);
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            mMap.setMyLocationEnabled(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                mMap.setMyLocationEnabled(true);
+                mMap.getUiSettings().setMyLocationButtonEnabled(true);
+            }else{
+                if(shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)){
+                    Toast.makeText(this,"Position permisition is needed to show you on the map.",Toast.LENGTH_SHORT).show();
+                }
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1340);
+            }
         }
+
 
         mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(MapsActivity.this));
 
