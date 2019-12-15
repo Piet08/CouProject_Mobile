@@ -20,6 +20,7 @@ public class User {
         this.pseudo = "Guest";
         this.email = "";
         this.hashpwd = "";
+        this.type = "";
         this.token = "";
         this.type = "-1";
         this.idAdr = -1;
@@ -145,4 +146,13 @@ public class User {
     public void setToken(String token) {
         this.token = token;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
 }

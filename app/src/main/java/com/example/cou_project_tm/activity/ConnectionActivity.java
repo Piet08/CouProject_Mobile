@@ -19,6 +19,7 @@ import com.example.cou_project_tm.services.UserRepoService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -32,6 +33,7 @@ public class ConnectionActivity extends AppCompatActivity {
     private CheckBox cbRemember;
     private Button btnLogin;
     private User currentUser;
+    private
 
     SharedPreferences sharedpreferences;
 
@@ -40,41 +42,70 @@ public class ConnectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection);
 
+        List<EditText> listEdit = new ArrayList<EditText>();
         etLogin = findViewById(R.id.et_login);
         etPassword = findViewById(R.id.et_password);
         cbRemember = findViewById(R.id.cb_remember);
         btnLogin = findViewById(R.id.btn_login);
 
+        listEdit.add(etLogin);
+        listEdit.add(etPassword);
+
         sharedpreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
 
-        btnLogin.setOnClickListener(v -> {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              Intent nextIntent = new Intent(getBaseContext(), MainActivity.class);
+                if(isCompleted(listEdit)) {
+                    AuthentificationService.login(String.valueOf(etLogin.getText()), String.valueOf(etPassword.getText())).enqueue(new Callback<User>() {
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response) {
+                            Gson gson = new GsonBuilder().serializeNulls().create();
+                            currentUser = response.body();
+                            AuthentificationService.setCurrentUser(currentUser);
 
-            Intent nextIntent = new Intent(getBaseContext(), MainActivity.class);
-            AuthentificationService.login(String.valueOf(etLogin.getText()),String.valueOf(etPassword.getText())).enqueue(new Callback<User>() {
-                @Override
-                public void onResponse(Call<User> call, Response<User> response) {
-                    Gson gson = new GsonBuilder().serializeNulls().create();
-                    currentUser = response.body();
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            if (cbRemember.isChecked()){
+                                editor.putString("currentUser", gson.toJson(currentUser));
+                                editor.apply();
+                                Log.i("connection", sharedpreferences.getString("currentUser", null));
+                              }
+                            startActivity(nextIntent);
+                        }
 
-                    AuthentificationService.setCurrentUser(currentUser);
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-                    if(cbRemember.isChecked()) {
-                        editor.putString("currentUser", gson.toJson(currentUser));
-                        editor.apply();
-                        Log.i("connection", sharedpreferences.getString("currentUser", null));
-                    }
-                    startActivity(nextIntent);
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
+                            Log.i("connection", "fail");
+                            startActivity(nextIntent);
 
-                }
-                @Override
-                public void onFailure(Call<User> call, Throwable t) {
-                    Log.i("connection","fail");
-                    startActivity(nextIntent);
+                        }
+                    });
+                }else{
+                    editTextCheck(listEdit);
                 }
             });
+      }
 
+    private boolean isCompleted(List<EditText> listEdit) {
+        for(EditText edit : listEdit){
+            if(edit.getText().toString().equals("")){
+                return false;
+            }else {
+                return true;
+            }
+        }
+        return false;
+    }
 
-        });
+    public void editTextCheck(List<EditText> list){
+        for(EditText edit : list){
+            if( edit.getText().toString().trim().equals("")) {
+                edit.setError("Le champ est requis.");
+            }
+        }
+    }
+
 
     }
 

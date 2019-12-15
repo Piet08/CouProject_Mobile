@@ -39,6 +39,9 @@ public class AuthentificationService {
         if(currentUser == null)
             currentUser = new User();
         AuthentificationService.currentUser = currentUser;
+        if(currentUser==null) {
+            currentUser = new User();
+        }
     }
 
     public static Observable<User> getUserObservable() {

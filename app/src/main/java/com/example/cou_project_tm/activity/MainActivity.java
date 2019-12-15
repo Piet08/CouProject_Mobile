@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.cou_project_tm.activity.MapsActivity;
 import com.example.cou_project_tm.R;
 import com.example.cou_project_tm.models.User;
 import com.example.cou_project_tm.services.AuthentificationService;
@@ -79,6 +80,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent nextIntent = null;
 
         switch (id){
+            case R.id.activity_main_drawer_register :
+                nextIntent = new Intent(this, RegisterActivity.class);
+                break;
             case R.id.activity_main_drawer_con :
                 nextIntent = new Intent(this, ConnectionActivity.class);
                 break;

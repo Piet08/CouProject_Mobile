@@ -1,10 +1,12 @@
 package com.example.cou_project_tm.services;
 
 import android.database.Observable;
+import android.util.Log;
 
 import com.example.cou_project_tm.config.Configuration;
 import com.example.cou_project_tm.models.AuthenticateModel;
 import com.example.cou_project_tm.models.User;
+import com.example.cou_project_tm.models.UserAndAddress;
 import com.example.cou_project_tm.repository.UserRepo;
 
 import java.util.List;
@@ -50,6 +52,11 @@ public class UserRepoService {
 
     public static Call<User> post(User user){
         return ourInstance.repository.post(user);
+    }
+
+    public static Call<User> post(UserAndAddress userAndAddress){
+        Log.i("place",userAndAddress.toString());
+        return ourInstance.repository.post(userAndAddress);
     }
 
     public static Call<User> post(AuthenticateModel auth){
