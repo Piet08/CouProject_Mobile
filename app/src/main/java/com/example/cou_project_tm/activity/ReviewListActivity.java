@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -90,12 +91,14 @@ public class ReviewListActivity extends AppCompatActivity implements AdapterView
     }
 
     private void loadReviews() {
+        ProgressBar reviewLoading = findViewById(R.id.reviews_progress_circle);
         ReviewRepoService.getReviewsAndUsers(id).enqueue(new Callback<List<ReviewAndUser>>() {
             @Override
             public void onResponse(Call<List<ReviewAndUser>> call, Response<List<ReviewAndUser>> response) {
-                Log.i("reviews",response.body().toString());
+//                Log.i("reviews",response.body().toString());
                 reviews.addAll(response.body());
                 reviewAndUserAdapter.notifyDataSetChanged();
+                reviewLoading.setVisibility(View.GONE);
             }
 
             @Override

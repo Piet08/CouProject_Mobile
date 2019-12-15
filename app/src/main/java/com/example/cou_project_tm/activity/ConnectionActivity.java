@@ -56,8 +56,8 @@ public class ConnectionActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              Intent nextIntent = new Intent(getBaseContext(), MainActivity.class);
-                if(isCompleted(listEdit)) {
+                Intent nextIntent = new Intent(getBaseContext(), MainActivity.class);
+                if (isCompleted(listEdit)) {
                     AuthentificationService.login(String.valueOf(etLogin.getText()), String.valueOf(etPassword.getText())).enqueue(new Callback<User>() {
                         @Override
                         public void onResponse(Call<User> call, Response<User> response) {
@@ -66,11 +66,11 @@ public class ConnectionActivity extends AppCompatActivity {
                             AuthentificationService.setCurrentUser(currentUser);
 
                             SharedPreferences.Editor editor = sharedpreferences.edit();
-                            if (cbRemember.isChecked()){
+                            if (cbRemember.isChecked()) {
                                 editor.putString("currentUser", gson.toJson(currentUser));
                                 editor.apply();
                                 Log.i("connection", sharedpreferences.getString("currentUser", null));
-                              }
+                            }
                             startActivity(nextIntent);
                         }
 
@@ -81,11 +81,12 @@ public class ConnectionActivity extends AppCompatActivity {
 
                         }
                     });
-                }else{
+                } else {
                     editTextCheck(listEdit);
                 }
-            });
-      }
+            }
+        });
+    }
 
     private boolean isCompleted(List<EditText> listEdit) {
         for(EditText edit : listEdit){
@@ -104,9 +105,6 @@ public class ConnectionActivity extends AppCompatActivity {
                 edit.setError("Le champ est requis.");
             }
         }
-    }
-
-
     }
 
     public boolean isChecked (View view){

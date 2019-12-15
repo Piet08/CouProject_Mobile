@@ -8,7 +8,9 @@
 
     <include
         android:id="@+id/simple_place_review"
-        layout="@layout/simple_place"/>
+        layout="@layout/simple_place"
+        tools:layout_editor_absoluteX="9dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <ListView
         android:id="@+id/tv_reviews_lv_reviews"
@@ -29,4 +31,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add_circle_black_24dp" />
+
+    <ProgressBar
+        android:id="@+id/reviews_progress_circle"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_reviews_lv_reviews" />
 </androidx.constraintlayout.widget.ConstraintLayout>
