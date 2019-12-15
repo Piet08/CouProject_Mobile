@@ -53,6 +53,8 @@ public class PlaceRepoService {
         return ourInstance.repository.query();
     }
 
+    public static Call<Void> deletePlaceCascade(int id){return ourInstance.repository.deletePlaceCascade(id);}
+
     public static Call<Place> post(Place place){
         return ourInstance.repository.post(place);
     }

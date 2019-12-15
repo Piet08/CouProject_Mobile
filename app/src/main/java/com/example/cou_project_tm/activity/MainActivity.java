@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         sharedpreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
-        this.setCurrentUser();
+        //this.setCurrentUser();
 
         this.configureToolBar();
 
@@ -54,11 +54,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    private void setCurrentUser() {
-        Gson gson = new GsonBuilder().serializeNulls().create();
-        Log.i("user shared preference", String.valueOf(gson.fromJson(sharedpreferences.getString("currentUser",null), User.class)));
-        AuthentificationService.setCurrentUser(gson.fromJson(sharedpreferences.getString("currentUser",null), User.class));
-    }
+//    private void setCurrentUser() {
+//        Gson gson = new GsonBuilder().serializeNulls().create();
+//        AuthentificationService.setCurrentUser(gson.fromJson(sharedpreferences.getString("currentUser",null), User.class));
+//    }
 
 
     @Override
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.clear();
         editor.apply();
-        //Log.i("UserContains", sharedpreferences.getString("currentUser",null));
+        AuthentificationService.setCurrentUser(null);
     }
 
     // ---------------------

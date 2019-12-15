@@ -16,6 +16,7 @@ import com.example.cou_project_tm.R;
 import com.example.cou_project_tm.models.Address;
 import com.example.cou_project_tm.models.User;
 import com.example.cou_project_tm.models.UserAndAddress;
+import com.example.cou_project_tm.services.AuthentificationService;
 import com.example.cou_project_tm.services.UserRepoService;
 
 import org.w3c.dom.Text;
@@ -71,6 +72,8 @@ public class RegisterActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<User> call, Response<User> response) {
                                 Log.i("UserAdd", response.body().toString());
+
+                                AuthentificationService.login(String.valueOf(etPseudo.getText()),String.valueOf(etVerifPwd.getText()));
                             }
 
                             @Override

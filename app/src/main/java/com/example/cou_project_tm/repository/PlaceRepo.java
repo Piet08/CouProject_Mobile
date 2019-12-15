@@ -28,7 +28,10 @@ public interface PlaceRepo {
     @POST(URL_PLACE+"/forms")
     Call<Place> post(@Body PlaceAndAddress placeAndAddress);
 
-    @DELETE(URL_PLACE)
+    @DELETE(URL_PLACE+"/address/reviews/{id}")
+    Call<Void> deletePlaceCascade(@Path("id") int id);
+
+    @DELETE(URL_PLACE+"/{id}")
     Call<Void> delete(@Path("id")int id);
 
     @PUT(URL_PLACE)

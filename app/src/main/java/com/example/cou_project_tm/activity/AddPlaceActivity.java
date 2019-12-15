@@ -57,9 +57,6 @@ public class AddPlaceActivity extends AppCompatActivity {
         addItemsOnspinner();
 
 
-
-
-
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
