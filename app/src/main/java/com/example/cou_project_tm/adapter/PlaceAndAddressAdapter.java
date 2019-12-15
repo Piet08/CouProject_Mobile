@@ -1,6 +1,9 @@
 package com.example.cou_project_tm.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +14,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.cou_project_tm.R;
+import com.example.cou_project_tm.activity.ReviewListActivity;
 import com.example.cou_project_tm.models.Address;
 import com.example.cou_project_tm.models.PlaceAndAddress;
 import com.example.cou_project_tm.services.AuthentificationService;
@@ -26,7 +31,7 @@ import retrofit2.Response;
 
 public class PlaceAndAddressAdapter extends ArrayAdapter<PlaceAndAddress> {
 
-    Button btnAdd,btnDelete,btnCancel;
+//    Button btnAdd,btnDelete,btnCancel;
 
     public PlaceAndAddressAdapter(@NonNull Context context, int resource, @NonNull List<PlaceAndAddress> objects) {
         super(context, resource, objects);
@@ -48,9 +53,11 @@ public class PlaceAndAddressAdapter extends ArrayAdapter<PlaceAndAddress> {
         RatingBar ratingbar = v.findViewById(R.id.tv_rating_bar);
         TextView address = v.findViewById(R.id.tv_address);
 
-        btnDelete = v.findViewById(R.id.item_place_bt_delete);
-        btnCancel = v.findViewById(R.id.item_place_bt_cancel);
-        btnAdd = v.findViewById(R.id.item_place_bt_add);
+        ConstraintLayout cl = v.findViewById(R.id.item_place_constraint);
+
+        Button btnDelete = cl.findViewById(R.id.item_place_bt_delete);
+        Button btnCancel = cl.findViewById(R.id.item_place_bt_cancel);
+        Button btnAdd = cl.findViewById(R.id.item_place_bt_add);
 
         PlaceAndAddress place = getItem(position);
         Address adr = place.getAddress();
@@ -61,18 +68,32 @@ public class PlaceAndAddressAdapter extends ArrayAdapter<PlaceAndAddress> {
         address.setText(adr.getPostalCode()+", " +adr.getCity()+"\n"+adr.getStraat()+", n° "+adr.getNum());
         ratingbar.setRating((float)place.getAvgRate()/2);
 
+        ConstraintLayout constraintLayout = v.findViewById(R.id.item_place_constraint_global);
+        constraintLayout.setOnClickListener(v1 -> {
+            Intent reviewIntent = new Intent(getContext(), ReviewListActivity.class);
+            reviewIntent.putExtra("id",place.getPlace().getId());
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("place",place);
+            reviewIntent.putExtras(bundle);
+            getContext().startActivity(reviewIntent);
+        });
+
         if(AuthentificationService.getCurrentUser().getType().equals("1")){
 
-            swapBtn(false);
+            btnDelete.setVisibility(View.VISIBLE);
+            btnCancel.setVisibility(View.GONE);
+            btnAdd.setVisibility(View.GONE);
 
             btnDelete.setOnClickListener(v1 -> {
-                swapBtn(true);
+
+                btnDelete.setVisibility(View.GONE);
+                btnCancel.setVisibility(View.VISIBLE);
+                btnAdd.setVisibility(View.VISIBLE);
 
                 btnAdd.setOnClickListener(v3 -> {
                     PlaceRepoService.deletePlaceCascade(place.getPlace().getId()).enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
-                            swapBtn(false);
                             remove(place);
                         }
 
@@ -84,23 +105,13 @@ public class PlaceAndAddressAdapter extends ArrayAdapter<PlaceAndAddress> {
                 });
 
                 btnCancel.setOnClickListener(v2 -> {
-                    swapBtn(false);
+                    btnDelete.setVisibility(View.VISIBLE);
+                    btnCancel.setVisibility(View.GONE);
+                    btnAdd.setVisibility(View.GONE);
                 });
             });
         }
         return v;
     }
 
-    private void swapBtn(boolean b){
-        if(!b){
-            btnDelete.setVisibility(View.VISIBLE);
-            btnCancel.setVisibility(View.GONE);
-            btnAdd.setVisibility(View.GONE);
-        }else{
-            btnDelete.setVisibility(View.GONE);
-            btnCancel.setVisibility(View.VISIBLE);
-            btnAdd.setVisibility(View.VISIBLE);
-        }
-
-    }
 }

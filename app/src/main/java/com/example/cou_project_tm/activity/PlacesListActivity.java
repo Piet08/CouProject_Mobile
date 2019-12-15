@@ -2,7 +2,6 @@ package com.example.cou_project_tm.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,9 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cou_project_tm.R;
 import com.example.cou_project_tm.adapter.PlaceAndAddressAdapter;
-import com.example.cou_project_tm.models.Place;
+import com.example.cou_project_tm.async.AsyncProgressBar;
 import com.example.cou_project_tm.models.PlaceAndAddress;
-import com.example.cou_project_tm.models.User;
 import com.example.cou_project_tm.services.AuthentificationService;
 import com.example.cou_project_tm.services.PlaceRepoService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -34,18 +32,26 @@ public class PlacesListActivity extends AppCompatActivity implements AdapterView
     private ListView lvPlaces;
     private List<PlaceAndAddress> places;
     private PlaceAndAddressAdapter placesAdapter;
+    private ProgressBar progressBar;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.places);
 
+        progressBar = findViewById(R.id.places_progress_bar);
+        //progressBar.setMax(50);
+        //launchProgressBar();
+
+
         places = new ArrayList<>();
         lvPlaces = findViewById(R.id.lv_places);
         placesAdapter = new PlaceAndAddressAdapter(this,R.id.lv_places,places);
         lvPlaces.setAdapter(placesAdapter);
-        lvPlaces.setOnItemClickListener(this);
+        //lvPlaces.setOnItemClickListener(this);
         loadPlaces();
+
 
         FloatingActionButton button = findViewById(R.id.places_button_add);
         button.setOnClickListener(v -> {
@@ -57,13 +63,25 @@ public class PlacesListActivity extends AppCompatActivity implements AdapterView
         });
     }
 
+//    private void launchProgressBar() {
+//         new AsyncProgressBar(new AsyncProgressBar.Callback() {
+//            @Override
+//            public void updateProgressBar(int currentValue) {
+//                progressBar.setProgress(currentValue);
+//            }
+//
+//            @Override
+//            public void onFinished() {
+//
+//            }
+//        }).execute(100);
+//    }
+
     private void loadPlaces() {
-        ProgressBar loadingProgress = findViewById(R.id.places_progress_circle);
         PlaceRepoService.getPlacesAndAddress().enqueue(new Callback<List<PlaceAndAddress>>() {
             @Override
             public void onResponse(Call<List<PlaceAndAddress>> call, Response<List<PlaceAndAddress>> response) {
-//                Log.i("places",response.body().toString());
-                loadingProgress.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
                 places.addAll(response.body());
                 placesAdapter.notifyDataSetChanged();
             }

@@ -29,8 +29,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ReviewAndUserAdapter extends ArrayAdapter<ReviewAndUser> {
-    ConstraintLayout clPrint,clBtn;
-    View vUpdate;
 
     public ReviewAndUserAdapter(@NonNull Context context, int resource, @NonNull List<ReviewAndUser> objects) {
         super(context, resource, objects);
@@ -53,9 +51,9 @@ public class ReviewAndUserAdapter extends ArrayAdapter<ReviewAndUser> {
         Button btnRemove = v.findViewById(R.id.item_review_bt_remove);
         Button btnUpdate = v.findViewById(R.id.item_review_bt_update);
 
-        clPrint = v.findViewById(R.id.item_review_constraint_print);
-        clBtn = v.findViewById(R.id.item_review_constraint_btn);
-        vUpdate = v.findViewById(R.id.item_review_update_review);
+        ConstraintLayout clPrint = v.findViewById(R.id.item_review_constraint_print);
+        ConstraintLayout clBtn = v.findViewById(R.id.item_review_constraint_btn);
+        View vUpdate = v.findViewById(R.id.item_review_update_review);
 
         RatingBar rateUpdate = vUpdate.findViewById(R.id.update_review_rate);
         EditText commentUpdate = vUpdate.findViewById(R.id.update_review_comment);
@@ -91,8 +89,9 @@ public class ReviewAndUserAdapter extends ArrayAdapter<ReviewAndUser> {
             });
 
             btnUpdate.setOnClickListener(v1 -> {
-                swapBtn(true);
-
+                clPrint.setVisibility(View.GONE);
+                clBtn.setVisibility(View.GONE);
+                vUpdate.setVisibility(View.VISIBLE);
                 btnAdd.setOnClickListener(v2 -> {
                     review1.setStar((int) rateUpdate.getRating()*2);
                     review1.setComment(String.valueOf(commentUpdate.getText()));
@@ -100,14 +99,21 @@ public class ReviewAndUserAdapter extends ArrayAdapter<ReviewAndUser> {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
                             notifyDataSetChanged();
-                            swapBtn(false);
+                            clPrint.setVisibility(View.VISIBLE);
+                            clBtn.setVisibility(View.VISIBLE);
+                            vUpdate.setVisibility(View.GONE);
                         }
+
                         @Override
-                        public void onFailure(Call<Void> call, Throwable t) { }
+                        public void onFailure(Call<Void> call, Throwable t) {
+
+                        }
                     });
                 });
                 btnCancel.setOnClickListener(v3 -> {
-                    swapBtn(false);
+                    clPrint.setVisibility(View.VISIBLE);
+                    clBtn.setVisibility(View.VISIBLE);
+                    vUpdate.setVisibility(View.GONE);
                 });
             });
         }else{
@@ -117,18 +123,5 @@ public class ReviewAndUserAdapter extends ArrayAdapter<ReviewAndUser> {
 
         return v;
     }
-
-    private void swapBtn(boolean b){
-        if(b){
-            clPrint.setVisibility(View.GONE);
-            clBtn.setVisibility(View.GONE);
-            vUpdate.setVisibility(View.VISIBLE);
-        }else{
-            clPrint.setVisibility(View.VISIBLE);
-            clBtn.setVisibility(View.VISIBLE);
-            vUpdate.setVisibility(View.GONE);
-        }
-    }
-
 
 }
