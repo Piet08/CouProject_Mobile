@@ -17,14 +17,10 @@ import com.example.cou_project_tm.R;
 import com.example.cou_project_tm.models.EnumTypePlace;
 import com.example.cou_project_tm.models.Place;
 import com.example.cou_project_tm.models.PlaceAndAddress;
-import com.example.cou_project_tm.models.User;
-import com.example.cou_project_tm.services.AddressRepoService;
-import com.example.cou_project_tm.services.AuthentificationService;
 import com.example.cou_project_tm.services.PlaceRepoService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,6 +53,8 @@ public class AddPlaceActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Place> call, Response<Place> response) {
                         Log.i("PlaceAdd", response.body().toString());
+                        Intent nextIntent = new Intent(getBaseContext(), MainActivity.class);
+                        startActivity(nextIntent);
                     }
 
                     @Override
@@ -64,8 +62,7 @@ public class AddPlaceActivity extends AppCompatActivity {
                         Log.i("fail","fail");
                     }
                 });
-                Intent nextIntent = new Intent(getBaseContext(), MainActivity.class);
-                startActivity(nextIntent);
+
             }
 
         });

@@ -9,6 +9,7 @@ public class User {
     private String pseudo;
     private String email;
     private String hashpwd;
+    private String type;
     private int idAdr;
     private String token;
 
@@ -16,20 +17,22 @@ public class User {
         this.id = -1;
         this.name = "Guest";
         this.surname = "";
-        this.pseudo = "";
+        this.pseudo = "Guest";
         this.email = "";
         this.hashpwd = "";
         this.token = "";
+        this.type = "-1";
         this.idAdr = -1;
     }
 
-    public User(int id, String name, String surname, String pseudo, String email, String hashpwd, int idAdr, String token) {
+    public User(int id, String name, String surname, String pseudo, String email, String hashpwd, int idAdr, String token,String type) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.pseudo = pseudo;
         this.email = email;
         this.hashpwd = hashpwd;
+        this.type = type;
         this.idAdr = idAdr;
         this.token = token;
     }
@@ -43,6 +46,7 @@ public class User {
                 ", pseudo='" + pseudo + '\'' +
                 ", email='" + email + '\'' +
                 ", hashpwd='" + hashpwd + '\'' +
+                ", type='" + type + '\'' +
                 ", idAdr=" + idAdr +
                 ", token='" + token + '\'' +
                 '}';
@@ -54,18 +58,27 @@ public class User {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return id == user.id &&
+                idAdr == user.idAdr &&
                 Objects.equals(name, user.name) &&
                 Objects.equals(surname, user.surname) &&
                 Objects.equals(pseudo, user.pseudo) &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(hashpwd, user.hashpwd) &&
-                Objects.equals(idAdr, user.idAdr) &&
+                Objects.equals(type, user.type) &&
                 Objects.equals(token, user.token);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, pseudo, email, hashpwd, idAdr, token);
+        return Objects.hash(id, name, surname, pseudo, email, hashpwd, type, idAdr, token);
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getId() {

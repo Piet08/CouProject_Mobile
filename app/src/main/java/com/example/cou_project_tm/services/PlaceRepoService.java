@@ -47,6 +47,8 @@ public class PlaceRepoService {
 
     public static Call<List<PlaceAndAddress>> getPlacesAndAddress(){return ourInstance.repository.getPlacesAndAddress();}
 
+    public static Call<PlaceAndAddress> getPlaceAndAddress(int id){return ourInstance.repository.getPlaceAndAddress(id);}
+
     public static Call<List<Place>> query(){
         return ourInstance.repository.query();
     }
@@ -56,7 +58,6 @@ public class PlaceRepoService {
     }
 
     public static Call<Place> post(PlaceAndAddress placeAndAddress){
-        Log.i("place",placeAndAddress.toString());
         return ourInstance.repository.post(placeAndAddress);
     }
 

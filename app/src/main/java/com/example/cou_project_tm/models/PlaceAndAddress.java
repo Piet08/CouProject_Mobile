@@ -1,8 +1,9 @@
 package com.example.cou_project_tm.models;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class PlaceAndAddress {
+public class PlaceAndAddress implements Serializable {
     private Address address;
     private Place place;
     private double avgRate;

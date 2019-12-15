@@ -9,6 +9,8 @@ import com.example.cou_project_tm.repository.UserRepo;
 
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -26,7 +28,15 @@ public class UserRepoService {
     }
 
     private void init(){
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor( (chain) -> {
+            Request newRequest = chain.request().newBuilder()
+                    .addHeader("Authorization","Bearer "+AuthentificationService.getCurrentUser().getToken())
+                    .build();
+            return  chain.proceed(newRequest);
+        }).build();
+
         repository = new Retrofit.Builder()
+                .client(okHttpClient)
                 .baseUrl(Configuration.URL_API) //Localhost du PC et non du simulateur (5000 http, 5001 https)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

@@ -33,4 +33,7 @@ public interface PlaceRepo {
 
     @PUT(URL_PLACE)
     Call<Void> put(@Body Place place);
+
+    @GET(URL_PLACE+"/address/{id}")
+    Call<PlaceAndAddress> getPlaceAndAddress(@Path("id") int id);
 }

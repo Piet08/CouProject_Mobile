@@ -47,39 +47,36 @@ public class ConnectionActivity extends AppCompatActivity {
 
         sharedpreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AuthentificationService.login(String.valueOf(etLogin.getText()),String.valueOf(etPassword.getText())).enqueue(new Callback<User>() {
-                    @Override
-                    public void onResponse(Call<User> call, Response<User> response) {
-                        Gson gson = new GsonBuilder().serializeNulls().create();
-                        currentUser = response.body();
-                        AuthentificationService.setCurrentUser(currentUser);
+        btnLogin.setOnClickListener(v -> {
 
-                        SharedPreferences.Editor editor = sharedpreferences.edit();
-                        if(cbRemember.isChecked())
-                            editor.putString("currentUser",gson.toJson(currentUser));
-                            editor.apply();
+            Intent nextIntent = new Intent(getBaseContext(), MainActivity.class);
+            AuthentificationService.login(String.valueOf(etLogin.getText()),String.valueOf(etPassword.getText())).enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    Gson gson = new GsonBuilder().serializeNulls().create();
+                    currentUser = response.body();
 
-                        Log.i("connection",sharedpreferences.getString("currentUser",null));
-
+                    AuthentificationService.setCurrentUser(currentUser);
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    if(cbRemember.isChecked()) {
+                        editor.putString("currentUser", gson.toJson(currentUser));
+                        editor.apply();
+                        Log.i("connection", sharedpreferences.getString("currentUser", null));
                     }
-                    @Override
-                    public void onFailure(Call<User> call, Throwable t) {
-                        Log.i("connection","fail");
-                    }
-                });
-                Intent nextIntent = new Intent(getBaseContext(), MainActivity.class);
-                startActivity(nextIntent);
-            }
+                    startActivity(nextIntent);
+
+                }
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    Log.i("connection","fail");
+                    startActivity(nextIntent);
+                }
+            });
+
 
         });
 
-        //fetchUser();
     }
-
-
 
     public boolean isChecked (View view){
         if(cbRemember.isChecked()) {
@@ -88,21 +85,6 @@ public class ConnectionActivity extends AppCompatActivity {
             return false;
         }
         return false;
-    }
-
-    private void fetchUser() {
-        UserRepoService.query().enqueue(new Callback<List<User>>() {
-            @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                Log.i("User",response.body().toString());
-            }
-
-            @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
-                Log.i("fail","fail");
-            }
-        });
-
     }
 
 

@@ -1,5 +1,7 @@
 package com.example.cou_project_tm.models;
 
+import java.util.Objects;
+
 public class Review {
     private int id;
     private int star;
@@ -27,6 +29,38 @@ public class Review {
         this.idUser = idUser;
         this.idPlace = idPlace;
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "id=" + id +
+                ", star=" + star +
+                ", comment='" + comment + '\'' +
+                ", isValid=" + isValid +
+                ", idUser=" + idUser +
+                ", idPlace=" + idPlace +
+                ", date='" + date + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Review review = (Review) o;
+        return id == review.id &&
+                star == review.star &&
+                isValid == review.isValid &&
+                idUser == review.idUser &&
+                idPlace == review.idPlace &&
+                Objects.equals(comment, review.comment) &&
+                Objects.equals(date, review.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, star, comment, isValid, idUser, idPlace, date);
     }
 
     public int getId() {
