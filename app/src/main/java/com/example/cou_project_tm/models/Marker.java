@@ -1,16 +1,8 @@
 package com.example.cou_project_tm.models;
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.TextView;
-
-import com.example.cou_project_tm.R;
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
 import java.util.Objects;
-import java.util.zip.Inflater;
 
 public class Marker implements ClusterItem{
     private int idAdr;
@@ -29,6 +21,7 @@ public class Marker implements ClusterItem{
     private LatLng latLng;
 
     public Marker(int idAdr, String city, String straat, String num, int postalCode, int idPlace, String name, String description, String type, double avgRate) {
+
         this.idAdr = idAdr;
         this.city = city;
         this.straat = straat;
@@ -57,7 +50,12 @@ public class Marker implements ClusterItem{
     }
 
     public String infoPlaceToString(){
-        return name + " : " + description + "\n" + avgRate;
+        String noRating;
+        if(avgRate == 0)
+            noRating = "Pas d'avis";
+        else
+            noRating = String.valueOf(avgRate) + "/10";
+        return name + " : " + description + "\n Note : " + noRating;
     }
 
     @Override
@@ -74,7 +72,7 @@ public class Marker implements ClusterItem{
 
     @Override
     public int hashCode() {
-        return Objects.hash(idAdr, city, straat, num, postalCode);
+        return Objects.hash(idAdr, city, straat, num, postalCode, idPlace, name, description, type, avgRate, latLng);
     }
 
     public int getId() {
@@ -120,6 +118,30 @@ public class Marker implements ClusterItem{
     public LatLng getLatLng() { return latLng; }
 
     public void setLatLng(LatLng latLng) { this.latLng = latLng; }
+
+    public int getIdAdr() { return idAdr; }
+
+    public void setIdAdr(int idAdr) { this.idAdr = idAdr; }
+
+    public int getIdPlace() { return idPlace; }
+
+    public void setIdPlace(int idPlace) { this.idPlace = idPlace; }
+
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
+
+    public String getDescription() { return description; }
+
+    public void setDescription(String description) { this.description = description; }
+
+    public String getType() { return type; }
+
+    public void setType(String type) { this.type = type; }
+
+    public double getAvgRate() { return avgRate; }
+
+    public void setAvgRate(double avgRate) { this.avgRate = avgRate; }
 
     @Override
     public LatLng getPosition() { return latLng; }
