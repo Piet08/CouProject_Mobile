@@ -85,8 +85,8 @@ public class ConnectionActivity extends AppCompatActivity {
                     editTextCheck(listEdit);
                 }
             }
-            });
-      }
+        });
+    }
 
     private boolean isCompleted(List<EditText> listEdit) {
         for(EditText edit : listEdit){

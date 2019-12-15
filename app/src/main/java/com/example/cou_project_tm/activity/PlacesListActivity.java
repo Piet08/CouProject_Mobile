@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -57,10 +58,12 @@ public class PlacesListActivity extends AppCompatActivity implements AdapterView
     }
 
     private void loadPlaces() {
+        ProgressBar loadingProgress = findViewById(R.id.places_progress_circle);
         PlaceRepoService.getPlacesAndAddress().enqueue(new Callback<List<PlaceAndAddress>>() {
             @Override
             public void onResponse(Call<List<PlaceAndAddress>> call, Response<List<PlaceAndAddress>> response) {
-                Log.i("places",response.body().toString());
+//                Log.i("places",response.body().toString());
+                loadingProgress.setVisibility(View.GONE);
                 places.addAll(response.body());
                 placesAdapter.notifyDataSetChanged();
             }
