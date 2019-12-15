@@ -107,6 +107,7 @@ public class ConnectionActivity extends AppCompatActivity {
         }
     }
 
+
     public boolean isChecked (View view){
         if(cbRemember.isChecked()) {
             return true;

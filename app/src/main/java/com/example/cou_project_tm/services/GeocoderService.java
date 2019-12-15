@@ -29,6 +29,7 @@ public class GeocoderService {
         } catch (IOException e) {
             e.printStackTrace();
             Log.e("MarkerError","Erreur de marker",e);
+            return null;
         }
         return result;
     }

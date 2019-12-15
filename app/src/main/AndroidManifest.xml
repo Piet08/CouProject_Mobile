@@ -12,9 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".activity.PlacesListActivity"></activity>
         <activity android:name=".activity.ReviewListActivity"></activity>
         <activity android:name=".activity.AddReviewActivity"></activity>
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -25,6 +27,7 @@
             android:label="@string/title_activity_maps"></activity>
         <activity android:name=".activity.ConnectionActivity" />
         <activity android:name=".activity.AddPlaceActivity" />
+
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
