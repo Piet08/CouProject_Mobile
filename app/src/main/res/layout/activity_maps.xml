@@ -52,5 +52,3 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-    tools:context=".activity.MapsActivity" />

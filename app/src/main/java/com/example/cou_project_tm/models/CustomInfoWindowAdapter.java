@@ -12,6 +12,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.maps.android.clustering.ClusterItem;
 
+import java.util.List;
+
 public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter{
 
     private final View mWindow;
@@ -30,9 +32,16 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter{
         if(marker.getTitle() == null && marker.getSnippet() == null) {
             address = "..Zoomez pour voir les lieux concentrés..";
             place = ".....";
+            marker.setTag(-1);
         }else{
             address = marker.getTitle();
             place = marker.getSnippet();
+            List<com.example.cou_project_tm.models.Marker> tmp = context.getAllPlacesAndAddresses();
+            for (com.example.cou_project_tm.models.Marker m : tmp) {
+                if((m.getCity() + "," + m.getStraat() + " N° " + m.getNum() + ", " + m.getPostalCode()).equals(marker.getTitle())){
+                    marker.setTag(m.getIdPlace());
+                }
+            }
         }
 
         TextView tvAddress = v.findViewById(R.id.customTitle);

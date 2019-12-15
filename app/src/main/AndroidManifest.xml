@@ -28,9 +28,6 @@
         <activity android:name=".activity.ConnectionActivity" />
         <activity android:name=".activity.AddPlaceActivity" />
 
-        <activity android:name=".activity.PlacesListActivity"></activity>
-        <activity android:name=".activity.ReviewListActivity"></activity>
-
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
