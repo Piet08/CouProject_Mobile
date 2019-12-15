@@ -16,7 +16,10 @@ import com.example.cou_project_tm.R;
 import com.example.cou_project_tm.models.User;
 import com.example.cou_project_tm.services.AuthentificationService;
 import com.example.cou_project_tm.services.UserRepoService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -29,9 +32,9 @@ public class ConnectionActivity extends AppCompatActivity {
     private EditText etLogin, etPassword;
     private CheckBox cbRemember;
     private Button btnLogin;
-    private Call<User> currentUser;
+    private User currentUser;
+    private
 
-    public static final String MyPREFERENCES = "MyPrefs" ;
     SharedPreferences sharedpreferences;
 
 
@@ -39,43 +42,70 @@ public class ConnectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection);
 
+        List<EditText> listEdit = new ArrayList<EditText>();
         etLogin = findViewById(R.id.et_login);
         etPassword = findViewById(R.id.et_password);
         cbRemember = findViewById(R.id.cb_remember);
         btnLogin = findViewById(R.id.btn_login);
 
-        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        listEdit.add(etLogin);
+        listEdit.add(etPassword);
 
+        sharedpreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("checked", String.valueOf(isChecked(v)));
-                AuthentificationService.login(String.valueOf(etLogin.getText()),String.valueOf(etPassword.getText()),isChecked(v)).enqueue(new Callback<User>() {
-                    @Override
-                    public void onResponse(Call<User> call, Response<User> response) {
-                        Log.i("User",response.body().toString());
-                        currentUser = call;
-                        SharedPreferences.Editor editor = sharedpreferences.edit();
-                        editor.putString("User",currentUser.toString());
-                        //Log.i("User", String.valueOf(sharedpreferences.contains("User")));
-                        editor.commit();
-
-                    }
-                    @Override
-                    public void onFailure(Call<User> call, Throwable t) {
-                        Log.i("fail","fail");
-                    }
-                });
                 Intent nextIntent = new Intent(getBaseContext(), MainActivity.class);
-                startActivity(nextIntent);
+                if (isCompleted(listEdit)) {
+                    AuthentificationService.login(String.valueOf(etLogin.getText()), String.valueOf(etPassword.getText())).enqueue(new Callback<User>() {
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response) {
+                            Gson gson = new GsonBuilder().serializeNulls().create();
+                            currentUser = response.body();
+                            AuthentificationService.setCurrentUser(currentUser);
+
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            if (cbRemember.isChecked()) {
+                                editor.putString("currentUser", gson.toJson(currentUser));
+                                editor.apply();
+                                Log.i("connection", sharedpreferences.getString("currentUser", null));
+                            }
+                            startActivity(nextIntent);
+                        }
+
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
+                            Log.i("connection", "fail");
+                            startActivity(nextIntent);
+
+                        }
+                    });
+                } else {
+                    editTextCheck(listEdit);
+                }
             }
+            });
+      }
 
-        });
-
-        fetchUser();
+    private boolean isCompleted(List<EditText> listEdit) {
+        for(EditText edit : listEdit){
+            if(edit.getText().toString().equals("")){
+                return false;
+            }else {
+                return true;
+            }
+        }
+        return false;
     }
 
+    public void editTextCheck(List<EditText> list){
+        for(EditText edit : list){
+            if( edit.getText().toString().trim().equals("")) {
+                edit.setError("Le champ est requis.");
+            }
+        }
+    }
 
 
     public boolean isChecked (View view){
@@ -85,21 +115,6 @@ public class ConnectionActivity extends AppCompatActivity {
             return false;
         }
         return false;
-    }
-
-    private void fetchUser() {
-        UserRepoService.query().enqueue(new Callback<List<User>>() {
-            @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                Log.i("User",response.body().toString());
-            }
-
-            @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
-                Log.i("fail","fail");
-            }
-        });
-
     }
 
 

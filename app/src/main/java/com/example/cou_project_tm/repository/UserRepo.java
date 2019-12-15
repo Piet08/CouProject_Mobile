@@ -4,6 +4,7 @@ import android.database.Observable;
 
 import com.example.cou_project_tm.models.AuthenticateModel;
 import com.example.cou_project_tm.models.User;
+import com.example.cou_project_tm.models.UserAndAddress;
 
 import java.util.List;
 
@@ -26,6 +27,9 @@ public interface UserRepo {
 
     @POST(URL_USER)
     Call<User> post(@Body User user);
+
+    @POST(URL_USER)
+    Call<User> post(@Body UserAndAddress userAndAddress);
 
     @DELETE(URL_USER)
     Call<Void> delete(@Path("id") int id);

@@ -3,9 +3,10 @@ package com.example.cou_project_tm.models;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Address{
+public class Address implements Serializable {
     private int id;
     private String city;
     private String straat;

@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,8 +16,19 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.cou_project_tm.activity.MapsActivity;
 import com.example.cou_project_tm.R;
+import com.example.cou_project_tm.models.User;
+import com.example.cou_project_tm.services.AuthentificationService;
+import com.google.android.gms.common.data.DataBufferObserver;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -22,16 +36,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    SharedPreferences sharedpreferences;
-    public static final String MyPREFERENCES = "MyPrefs" ;
+    private SharedPreferences sharedpreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        // 6 - Configure all views
+        sharedpreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+        this.setCurrentUser();
 
         this.configureToolBar();
 
@@ -41,6 +54,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    private void setCurrentUser() {
+        Gson gson = new GsonBuilder().serializeNulls().create();
+        Log.i("user shared preference", String.valueOf(gson.fromJson(sharedpreferences.getString("currentUser",null), User.class)));
+        AuthentificationService.setCurrentUser(gson.fromJson(sharedpreferences.getString("currentUser",null), User.class));
+    }
 
 
     @Override
@@ -62,6 +80,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent nextIntent = null;
 
         switch (id){
+            case R.id.activity_main_drawer_register :
+                nextIntent = new Intent(this, RegisterActivity.class);
+                break;
             case R.id.activity_main_drawer_con :
                 nextIntent = new Intent(this, ConnectionActivity.class);
                 break;
@@ -72,7 +93,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 nextIntent = new Intent(this,PlacesListActivity.class);
                 break;
             case R.id.activity_main_drawer_addPlace :
-                nextIntent = new Intent(this, AddPlaceActivity.class);
+                if(AuthentificationService.getCurrentUser().getType() == "-1"){
+                    Toast.makeText(this,"You have to be logged !",Toast.LENGTH_LONG).show();
+                }else
+                    nextIntent = new Intent(this, AddPlaceActivity.class);
                 break;
             case R.id.activity_main_drawer_logOut:
                 logOut();
@@ -81,20 +105,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             default:
                 break;
         }
-        startActivity(nextIntent);
+        if(nextIntent != null)startActivity(nextIntent);
         this.drawerLayout.closeDrawer(GravityCompat.START);
 
         return true;
     }
 
     private void logOut(){
-        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        if(sharedpreferences.contains("User")){
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.clear();
-            editor.commit();
-            Log.i("UserContains", String.valueOf(sharedpreferences.contains("User")));
-        }
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.clear();
+        editor.apply();
+        //Log.i("UserContains", sharedpreferences.getString("currentUser",null));
     }
 
     // ---------------------
@@ -118,6 +139,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // 3 - Configure NavigationView
     private void configureNavigationView(){
         this.navigationView = (NavigationView) findViewById(R.id.activity_main_nav_view);
+        View headerView  = navigationView.getHeaderView(0);
+        TextView helloUser = headerView.findViewById(R.id.activity_main_header);
+        helloUser.setText(AuthentificationService.getCurrentUser().getPseudo());
         navigationView.setNavigationItemSelectedListener(this);
     }
 }

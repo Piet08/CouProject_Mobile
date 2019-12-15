@@ -1,8 +1,9 @@
 package com.example.cou_project_tm.models;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Place {
+public class Place implements Serializable {
     private int id;
     private String name;
     private String description;

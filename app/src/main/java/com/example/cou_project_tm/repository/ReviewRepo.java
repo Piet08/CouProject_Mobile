@@ -25,7 +25,7 @@ public interface ReviewRepo {
     @POST(URL_REVIEW)
     Call<Review> post(@Body Review review);
 
-    @DELETE(URL_REVIEW)
+    @DELETE(URL_REVIEW+"/{id}")
     Call<Void> delete(@Path("id") int id);
 
     @PUT(URL_REVIEW)

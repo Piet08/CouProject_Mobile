@@ -5,18 +5,15 @@ import java.util.Objects;
 public class AuthenticateModel {
     private String username;
     private String password;
-    private boolean remember;
 
-    public AuthenticateModel(String username, String password, boolean remember) {
+    public AuthenticateModel(String username, String password) {
         this.username = username;
         this.password = password;
-        this.remember = remember;
     }
 
     public AuthenticateModel() {
         this.username = "";
         this.password = "";
-        this.remember = false;
     }
 
     public String getUsername() {
@@ -26,23 +23,22 @@ public class AuthenticateModel {
     public String toString() {
         return "AuthenticateUser{" +
                 "username =" + username +
-                ", password='" + password + '\'' +
-                ", remembere=" + remember+ '}';
+                ", password='" + password + '\'';
     }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AuthenticateModel that = (AuthenticateModel) o;
-        return remember == that.remember &&
-                Objects.equals(username, that.username) &&
+        return Objects.equals(username, that.username) &&
                 Objects.equals(password, that.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, password, remember);
+        return Objects.hash(username, password);
     }
 
     public void setUsername(String username) {
@@ -57,11 +53,4 @@ public class AuthenticateModel {
         this.password = password;
     }
 
-    public boolean isRemember() {
-        return remember;
-    }
-
-    public void setRemember(boolean remember) {
-        this.remember = remember;
-    }
 }

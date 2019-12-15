@@ -5,5 +5,7 @@
     <string name="home1">Nouvel étudiant dans la ville de Mons?\nRetrouve les lieux dont tu as besoin ici !\n</string>
     <string name="home2">\nAvec un compte utilisateur, tu peux ajouter des lieux pas encore connus par la communatée!\nDe plus, tu peux laisser des commentaires et des notes pour la communautée !</string>
     <string name="title_activity_maps">Map</string>
+    <string name="ID_PLACE_FOR_REVIEW">ID_PLACE_FOR_REVIEW</string>
+    <string name="CURRENT_USER">currentUser</string>
 
 </resources>

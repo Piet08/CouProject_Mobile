@@ -16,7 +16,10 @@ import com.example.cou_project_tm.R;
 import com.example.cou_project_tm.adapter.PlaceAndAddressAdapter;
 import com.example.cou_project_tm.models.Place;
 import com.example.cou_project_tm.models.PlaceAndAddress;
+import com.example.cou_project_tm.models.User;
+import com.example.cou_project_tm.services.AuthentificationService;
 import com.example.cou_project_tm.services.PlaceRepoService;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +46,14 @@ public class PlacesListActivity extends AppCompatActivity implements AdapterView
         lvPlaces.setOnItemClickListener(this);
         loadPlaces();
 
+        FloatingActionButton button = findViewById(R.id.places_button_add);
+        button.setOnClickListener(v -> {
+            if(AuthentificationService.getCurrentUser().getType() == "-1"){
+                Toast.makeText(this,"You have to be logged !",Toast.LENGTH_LONG).show();
+            }else{
+                startActivity(new Intent(this,AddPlaceActivity.class));
+            }
+        });
     }
 
     private void loadPlaces() {
@@ -65,7 +76,12 @@ public class PlacesListActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final PlaceAndAddress place = places.get(position);
-        ReviewListActivity.setId(place.getPlace().getId());
-        startActivity(new Intent(this,ReviewListActivity.class));
+        //ReviewListActivity.setId(place.getPlace().getId());
+        Intent reviewIntent = new Intent(this,ReviewListActivity.class);
+        reviewIntent.putExtra("id",place.getPlace().getId());
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("place",place);
+        reviewIntent.putExtras(bundle);
+        startActivity(reviewIntent);
     }
 }

@@ -25,12 +25,15 @@ public interface PlaceRepo {
     @POST(URL_PLACE)
     Call<Place> post(@Body Place place);
 
-    @POST(URL_PLACE)
-    Call<PlaceAndAddress> post(@Body PlaceAndAddress placeAndAddress);
+    @POST(URL_PLACE+"/forms")
+    Call<Place> post(@Body PlaceAndAddress placeAndAddress);
 
     @DELETE(URL_PLACE)
     Call<Void> delete(@Path("id")int id);
 
     @PUT(URL_PLACE)
     Call<Void> put(@Body Place place);
+
+    @GET(URL_PLACE+"/address/{id}")
+    Call<PlaceAndAddress> getPlaceAndAddress(@Path("id") int id);
 }
